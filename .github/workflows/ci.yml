@@ -22,7 +22,7 @@ jobs:
         env:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: secret
-          postgres_db: simple_bank
+          POSTGRES_DB: simple_bank
         ports:
           - 5432:5432
         options: >-
@@ -42,9 +42,10 @@ jobs:
 
     - name: Install golang-migrate
       run: |
-        curl -L https://github.com/golang-migrate/migrate/releases/download/v4.19.1/migrate.darwin-amd64.tar.gz | tar xvz
+        curl -L https://github.com/golang-migrate/migrate/releases/download/v4.19.1/migrate.linux-amd64.tar.gz | tar xvz
         sudo mv migrate /usr/local/bin/
         which migrate
+        migrate -version
 
     - name: Run migrations
       run: make migrateup
