@@ -20,7 +20,7 @@ sqlc:
 	sqlc generate
 
 test:
-	go test -v -coverprofile=coverage.out ./... && go tool cover -func=coverage.out | awk '/total:/ {pct=substr($$3,1,length($$3)-1); if (pct+0 < 50) {print "Coverage " pct "% is below 50% threshold"; exit 1} else {print "Coverage " pct "% meets 50% threshold"}}'
+	go test -v -coverprofile=coverage.out -covermode=atomic ./db/sqlc/... && go tool cover -func=coverage.out | awk '/total:/ {pct=substr($$3,1,length($$3)-1); if (pct+0 < 50) {print "Coverage " pct "% is below 50% threshold"; exit 1} else {print "Coverage " pct "% meets 50% threshold"}}'
 
 .PHONY: postgres createdb dropdb migrateup migratedown migrateforce test
 
